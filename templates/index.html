@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PingPals</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Welcome to PingPals</h1>
+    <h2>Online Users</h2>
+    <ul>
+        {{range .Users}}
+        <li>{{.Username}}</li>
+        <form action="/send" method="POST">
+            <input type="hidden" name="sender" value="{{.Username}}">
+            <input type="hidden" name="receiver" value="{{.Username}}">
+            <li>
+                <input type="text" name="content" placeholder="Type your message">
+                <button type="submit">Send</button>
+            </li>
+        </form>
+        {{end}}
+    </ul>
+    <h2>Messages</h2>
+    <ul>
+        {{range .Users}}
+            {{range .Messages}}
+                <li><b>{{.Sender}}:</b> {{.Content}}</li>
+            {{end}}
+        {{end}}
+    </ul>
+    <form action="/login" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
